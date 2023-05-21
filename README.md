@@ -4,8 +4,14 @@
 
 ## 开始
 
-vite创建项目
+### vite创建项目
   
 ```bash
 pnpm create vite antd-k --template react-ts # react-ts 模版 快速开发
+```
+
+### 增加sass支持
+
+```bash
+pnpm add -D sass
 ```

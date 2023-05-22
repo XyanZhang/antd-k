@@ -4,9 +4,6 @@ import classNames from 'classnames';
 import './index.scss';
 
 export interface avatarProps extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * 按钮大小
-   */
   size?: number | 'small' | 'medium' | 'large';
   shape?: 'circle' | 'square';
   src?: string | ReactNode;
@@ -16,6 +13,7 @@ export interface avatarProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   style?: CSSProperties;
   alt?: string;
+  others?: any;
 }
 
 const Avatar = (props: avatarProps) => {
@@ -24,15 +22,16 @@ const Avatar = (props: avatarProps) => {
     shape = 'circle',
     src,
     icon,
-    gap,
+    gap = 0,
     children,
+    className,
     ...others
   } = props;
 
   const [scale, setScale] = useState(1);
   const wraperRef = useRef<HTMLElement>(null)
-  const textRef = useRef(null)
 
+  // 文字自适应调整
   const textRefCallback = React.useCallback( (node: HTMLElement) => {
     if(!node) return;
     const reRender = () => {
@@ -42,17 +41,16 @@ const Avatar = (props: avatarProps) => {
       }
       const wraperWidth = wraperNode.offsetWidth;
       const textWidth = node.offsetWidth;
-      const gap = 4;
 
       const scale = wraperWidth - gap * 2 < textWidth ?
-        (wraperWidth - gap * 2) / textWidth : 1;
+        (wraperWidth - gap * 2) / textWidth : 1; //
       setScale(scale);
     }
 
     const ob = new ResizeObserver(reRender);
     ob.observe(node);
 
-  }, [])
+  }, [gap, size]); // 根据gap 和size 的变化重新计算
 
   const cls = classNames({
     'ant-avatar': true,
@@ -61,6 +59,7 @@ const Avatar = (props: avatarProps) => {
     'ant-avatar-icon': icon,
     'ant-avatar-image': src,
     [`ant-avatar-${shape}`]: shape,
+    [className as string]: className,
   });
 
   const style = typeof size === 'number' ? {
@@ -70,6 +69,7 @@ const Avatar = (props: avatarProps) => {
     fontSize: size / 2,
   } : props.style;
 
+  // 通过scale 和gap 来调整文字的位置
   const textStyle = {
     lineHeight: `${size}px`,
     transform: `scale(${scale}) translateX(-50%)`

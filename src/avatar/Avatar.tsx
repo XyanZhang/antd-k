@@ -62,12 +62,13 @@ const Avatar = (props: avatarProps) => {
     [className as string]: className,
   });
 
-  const style = typeof size === 'number' ? {
+  let style = {
     width: size,
     height: size,
     lineHeight: `${size}px`,
-    fontSize: size / 2,
-  } : props.style;
+    fontSize: +size / 2,
+    ...props.style,
+  };
 
   // 通过scale 和gap 来调整文字的位置
   const textStyle = {

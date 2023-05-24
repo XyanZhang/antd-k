@@ -9,6 +9,12 @@ interface buttonProps extends React.HTMLAttributes<HTMLButtonElement> {
   type?: ButtonType;
   size?: 'sm' | 'lg' | 'md';
   shape?: 'default' | 'circle' | 'round';
+  block?: boolean;
+  disabled?: any;
+  ghost?: boolean;
+  href?: string;
+  loading?: boolean | { delay?: number };
+  target?: string;
   children?: ReactNode | string;
   style?: React.CSSProperties;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -24,13 +30,16 @@ const Button = React.forwardRef<HTMLButtonElement, buttonProps>((props: buttonPr
     htmlType = 'button',
     shape = 'default',
     danger = false,
+    block,
     ...others } = props;
+    console.log('block,', block)
 
   const cls = classNames({
     'ant-btn': true,
     [`ant-btn-${size}`]: size,
     [`ant-btn-${type}`]: type,
     [`ant-btn-${shape}`]: shape,
+    [`ant-btn-block`]: block,
     [`ant-btn-dangerous`]: danger,
     [className as string]: !!className,
   })

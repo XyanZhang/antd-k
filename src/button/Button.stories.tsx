@@ -45,9 +45,45 @@ export const Primary: Story = {
 export const IconButton: Story = {
   args: {
     type: 'primary',
-    children: <StarTwoTone />,
+    children: <><StarTwoTone /> 嘻嘻</>,
     shape: "default",
     danger: true,
-    size: 'md'
+    size: 'md',
+    disabled: true
   },
 };
+
+const style={
+  marginLeft: 8
+}
+
+export const Basic = () => {
+  return <>
+    <Button type="primary">Primary Button</Button>
+    <Button style={style}>Default Button</Button>
+    <Button type="dashed" style={style}>Dashed Button</Button>
+    <br />
+    <Button type="text">Text Button</Button>
+    <Button type="link" style={style}>Link Button</Button>
+  </>
+}
+
+export const Demos = () => {
+  return (
+    <div style={{width: '300px'}}>
+      <Button type="primary" size="sm">primary</Button>
+      <Button type="primary" size="sm" block>Block</Button>
+      <hr/>
+      <div>
+        <Button type="primary" size="lg">primary</Button>
+        <Button type="primary" size="lg" disabled={true}>primary</Button>
+      </div>
+      <hr/>
+      <div>
+        <Button type="primary" size="lg" block={false}>block</Button>
+        <Button type="primary" size="lg" block>block</Button>
+        <Button type="primary" size="lg" block={true}>block</Button>
+      </div>
+    </div>
+  )
+}

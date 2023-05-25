@@ -29,3 +29,23 @@ satisfies<T>(type: Type<T>, value: unknown): value is T
 ts satisfies 主要用于类型保护，可以在编译时检查类型是否符合要求，避免在运行时出现类型错误。它可以与其他 TypeScript 类型判断函数一起使用，例如 typeof、instanceof 等，来实现更精确的类型判断。
 
 需要注意的是，ts satisfies 只能判断类型是否符合要求，不能判断值是否符合要求。因此，在使用时需要结合其他类型判断函数来进行综合判断。同时，ts satisfies 也只能判断静态类型，不能判断动态类型，因此需要谨慎使用，避免出现类型错误。
+
+
+## 组件
+
+### Button
+
+#### onClick 事件实现，loading的时候不可点击
+
+```tsx
+const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
+  const { onClick } = props;
+  if (innerLoading || mergedDisabled) {
+  // loading时， 不可点击
+    e.preventDefault();
+    return;
+  }
+  // 非点击或者禁用状态，触发 props 中的 onClick 事件 
+  (onClick as React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>)?.(e);
+};
+```

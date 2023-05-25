@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
-
+import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 import './index.scss';
 
-export type ButtonType = 'normal' | 'primary' | 'dashed' | 'link' | 'text';
+export type ButtonType = 'normal' | 'primary' | 'dashed' | 'link' | 'text' | 'ghost';
 interface buttonProps extends React.HTMLAttributes<HTMLButtonElement> {
   className?: string;
   type?: ButtonType;
@@ -11,7 +11,6 @@ interface buttonProps extends React.HTMLAttributes<HTMLButtonElement> {
   shape?: 'default' | 'circle' | 'round';
   block?: boolean;
   disabled?: any;
-  ghost?: boolean;
   href?: string;
   loading?: boolean | { delay?: number };
   target?: string;
@@ -23,7 +22,7 @@ interface buttonProps extends React.HTMLAttributes<HTMLButtonElement> {
   danger?: boolean;
 }
 
-export const ButtonTypes = ['normal', 'primary', 'dashed', 'link', 'text'];
+export const ButtonTypes = ['normal', 'primary', 'dashed', 'link', 'text', 'ghost'];
 
 const Button = React.forwardRef<HTMLButtonElement, buttonProps>((props: buttonProps, ref) => {
   const { className, type = 'normal', size = 'md', children, style, onClick, onBlur,
@@ -31,8 +30,10 @@ const Button = React.forwardRef<HTMLButtonElement, buttonProps>((props: buttonPr
     shape = 'default',
     danger = false,
     block,
+    loading = false,
     ...others } = props;
-    console.log('block,', block)
+
+  let childrenNode = children;
 
   const cls = classNames({
     'ant-btn': true,
@@ -41,11 +42,24 @@ const Button = React.forwardRef<HTMLButtonElement, buttonProps>((props: buttonPr
     [`ant-btn-${shape}`]: shape,
     [`ant-btn-block`]: block,
     [`ant-btn-dangerous`]: danger,
+    [`ant-btn-loading`]: loading,
     [className as string]: !!className,
   })
+  if(loading) {
+    childrenNode = <><LoadingOutlined /> {children}</>
+  }
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
+    const { onClick } = props;
+    if (loading || others.disabled) { // loading时 禁止点击
+      e.preventDefault();
+      return;
+    }
+    (onClick as React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>)?.(e);
+  }
   return <button {...others}
     type={htmlType}
-    ref={ref} className={cls} style={style} onClick={onClick} onBlur={onBlur}>{children}</button>;
+    disabled={others.disabled}
+    ref={ref} className={cls} style={style} onClick={handleClick} onBlur={onBlur}>{childrenNode}</button>;
 })
 
 export default Button;

@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import StarTwoTone from '@ant-design/icons/StarTwoTone';
 import Button, { ButtonTypes } from './Button';
-
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta = {
   title: 'General/Button',
@@ -67,6 +67,20 @@ export const Basic = () => {
     <Button type="link" style={style}>Link Button</Button>
   </>
 }
+export const Loading = () => {
+  let [loading, setLoading] = useState(false);
+  let loadingHandle = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }
+  return <>
+    <Button type="primary" loading={true}  onClick={loadingHandle}>Primary Button</Button>
+    <Button style={style} loading={loading} onClick={() => setLoading(!loading)}>Default Button</Button>
+    <Button type="primary" style={style}>Dashed Button</Button>
+  </>
+}
 
 export const Demos = () => {
   return (
@@ -86,4 +100,31 @@ export const Demos = () => {
       </div>
     </div>
   )
+}
+
+export const LoadingOnClick = () => {
+  const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0);
+  const handleClick = () => {
+    setLoading(true);
+    setCount(count + 1);
+  };
+  const handleReset = () => {
+    setLoading(false);
+    setCount(0);
+  }
+
+  const handleDisableLoading = () => {
+    setLoading(false);
+  }
+  return (
+    <>
+      <Button type="primary" loading={loading} onClick={handleClick}>
+        {loading ? 'Loading' : 'Click me'}
+        : {count}
+      </Button>
+      <Button onClick={handleDisableLoading}>disable click loading</Button>
+      <Button onClick={handleReset}>reset</Button>
+    </>
+  );
 }

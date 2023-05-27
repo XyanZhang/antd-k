@@ -1,25 +1,26 @@
-import React, { ReactElement } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import React from 'react';
 import { UserOutlined } from '@ant-design/icons';
 
 import Input from './index';
-import TextArea2 from './TextArea2';
-
-export default {
-  title: 'Example/Input',
+import { Meta, StoryObj } from '@storybook/react';
+const meta = {
+  title: 'General/Input',
   component: Input,
-} as ComponentMeta<typeof Input>;
+  tags: ['autodocs'],
+} satisfies Meta<typeof Input>;
 
-const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
+export default meta;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  children: 'Input',
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {
+  args: {
+    children: <>嘻嘻</>,
+    size: 'small',
+    placeholder: '请输入',
+    defaultValue: 'default value',
+  },
 };
-
-export const Basic = () => {
-  return <Input placeholder="basic usage" defaultValue="abcd" />
-}
 
 
 export const Prefix = () => {

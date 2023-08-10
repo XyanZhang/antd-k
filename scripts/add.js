@@ -21,7 +21,7 @@ const lowCase = str => str.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`).replace
     const componentName = varCase(component);
    
     // let res = spawnSync(cmd, ['-p', path.join(process.cwd(), `src/${dirName}`)]); // mac 下 创建文件夹
-    spawnSync('cmd', ['/c', 'md', path.join(process.cwd(), 'src/affix')]); // windows 下创建方式
+    spawnSync('cmd', ['/c', 'md', path.join(process.cwd(), 'src', dirName)]); // windows 下创建方式
     // let filesPath = path.join(__dirname, 'template', '*.tsx'); //有问题，不能使用绝对路径？
     const tplFiles = glob.sync('scripts/template/*.hbs'); // 获取模板文件路径
 
@@ -47,7 +47,8 @@ const lowCase = str => str.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`).replace
     const response = await fetch(`https://unpkg.com/antd@4.22.5/es/${dirName}/style/index.css`);
     const body = await response.text();
 
-    const scssFile = path.join(process.cwd(), `src/${dirName}/index.scss`);
+    // const scssFile = path.join(process.cwd(), `src/${dirName}/index.scss`);
+    const scssFile = path.join('src', dirName, 'index.scss');
     await fs.writeFile(scssFile, body);
     console.log(chalk.green(`update ${scssFile} success`));
 })();

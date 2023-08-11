@@ -1,23 +1,27 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import {{componentName}} from './index';
 
-export default {
-  title: 'Example/{{componentName}}',
+const meta: Meta<typeof {{componentName}}> = {
   component: {{componentName}},
-} as ComponentMeta<typeof {{componentName}}>;
+}
 
-const Template: ComponentStory<typeof {{componentName}}> = (args) => <{{componentName}} {...args} />;
+export default meta;
+type Story = StoryObj<typeof {{componentName}}>;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  type: 'primary',
-  children: '{{componentName}}',
+export const Primary: Story = {
+  name: "{{componentName}}",
+  render: () => <{{componentName}} />,
 };
 
-export const Basic = () => {
-  return <>
-    <{{componentName}} type="primary">Primary {{componentName}}</{{componentName}}>
-  </>
-}
+// use 
+/*
+export const Basic: Story = {
+  name: {{componentName}},
+  args: {
+    type: 'primary',
+    children: '{{componentName}}',
+  },
+};
+*/

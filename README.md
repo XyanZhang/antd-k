@@ -49,3 +49,12 @@ const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, 
   (onClick as React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>)?.(e);
 };
 ```
+
+### Affix
+
+rc-resize-observer 是一个基于 ResizeObserver API 的封装库，用于监测元素的大小变化。它的原理如下：
+
+> 在支持 ResizeObserver API 的浏览器中，rc-resize-observer 直接使用浏览器提供的 [ResizeObserver API](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver) 进行监听元素大小变化。
+> 对于不支持 ResizeObserver API 的浏览器，rc-resize-observer 会进行 polyfill，即使用一些技巧来模拟 ResizeObserver API 的功能。
+> 在 polyfill 过程中，rc-resize-observer 会通过监听 window 对象的 resize 事件和元素的 scroll 事件来检测元素的大小变化。
+> 通过比较元素的当前大小和上一次记录的大小，rc-resize-observer 判断元素的大小是否发生了变化，并触发相应的回调函数。

@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Form from './index';
 import Input from '../input';
 import Button from '../button';
-import Checkbox from '../checkbox';
+// import Checkbox from '../checkbox';
 const { Item, Reset } = Form;
 
 export default {
@@ -57,11 +57,11 @@ export const App: React.FC = () => {
       </Form.Item>
 
       <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-        <Checkbox
+        {/* <Checkbox
           checked={checked}
           value="checkvalue"
           onChange={(e) => setChecked(e.target.checked)}
-        >Remember me</Checkbox>
+        >Remember me</Checkbox> */}
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

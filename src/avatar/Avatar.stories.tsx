@@ -9,6 +9,7 @@ const meta = {
   component: Avatar,
   tags: ['autodocs'],
 } satisfies Meta<typeof Avatar>; // satisfies表示Avatar是Meta的子集
+//satisfies 让你用自动推导出的类型，而不是声明的类型，增加灵活性，同时还可以对这个推导出的类型做类型检查，保证安全
 
 export default meta;
 

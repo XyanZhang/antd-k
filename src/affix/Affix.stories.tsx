@@ -44,7 +44,7 @@ export const Basic: Story = {
 export const RegionAffix = () => {
   return <>
     <div>
-      <Affix offsetTop={10} onChange={onChange}>
+      <Affix target={window} className='haha' offsetTop={10} onChange={onChange}>
         <Button>affix button</Button>
       </Affix>
       <ul>

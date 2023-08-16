@@ -56,7 +56,8 @@ export function addObserveTarget<T>(target: HTMLElement | Window | null, affix?:
   if (!target) {
     return;
   }
-
+  console.log(target)
+  console.log(affix)
   let entity: ObserverEntity | undefined = observerEntities.find(item => item.target === target);
 
   if (entity) {
@@ -74,8 +75,9 @@ export function addObserveTarget<T>(target: HTMLElement | Window | null, affix?:
       // addEventListener(element, eventType, handler);
       entity!.eventHandlers[eventName] = addEventListener(target, eventName, () => {
         entity!.affixList.forEach(targetAffix => {
-          console.log(targetAffix)
-          lazyUpdatePosition();
+          // console.log(targetAffix)
+          // lazyUpdatePosition();
+          // 获取绝对位置
         });
       });
     });

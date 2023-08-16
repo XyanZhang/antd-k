@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Affix from './affix';
+import Affix from './affixUse';
 import Button from '../button/index';
 
 
@@ -48,7 +48,7 @@ export const RegionAffix = () => {
         <Button>affix button</Button>
       </Affix>
       <ul>
-        {new Array(20).fill(1).map((_, index) => <li key={index}>{ String(index).padStart(2,0) }</li>)}
+        {new Array(20).fill(1).map((_, index) => <li key={index}>{ String(index).padStart(2, '0') }</li>)}
       </ul>
     </div>
   </>
